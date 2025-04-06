@@ -1,8 +1,7 @@
 // src/components/FinalCTASection.tsx
 
 import React from "react";
-import Link from "next/link";
-import { QRCodeSVG } from "qrcode.react"; // Usando a versão SVG explicitamente
+import { QRCodeSVG } from "qrcode.react";
 import { FaChevronDown } from "react-icons/fa";
 import { Button } from "./ui/button";
 
@@ -26,9 +25,7 @@ interface FinalCTASectionProps {
 
 const FinalCTASection: React.FC<FinalCTASectionProps> = ({
   t,
-  demoButtonLink = "/contato",
   qrCodeValue,
-  secondaryLinkHref = "/funcionalidades",
 }) => {
   return (
     <section id="final-cta-dual" className="pt-16 bg-white lg:pt-24">
