@@ -22,7 +22,7 @@ const fontHeading = Anton({
 
 // --- Metadata Configuration ---
 // IMPORTANT: Define your site's base URL. Use environment variables ideally.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.agente3.com"; // REPLACE WITH YOUR ACTUAL DOMAIN
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.agente3.com";
 
 export const metadata: Metadata = {
   // --- Basic & SEO ---
