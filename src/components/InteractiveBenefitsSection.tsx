@@ -93,7 +93,7 @@ const InteractiveBenefitsSection: React.FC<InteractiveBenefitsSectionProps> = ({
   const imageBenefit = benefitsData[imageIndex];
 
   return (
-    <section id="interactive-benefits" className="bg-fuchsia-200">
+    <section id="features" className="bg-fuchsia-200">
       {" "}
       {/* Considerar se esse fundo ainda faz sentido */}
       <div className="py-16 lg:py-24 bg-white rounded-tl-[6rem]">

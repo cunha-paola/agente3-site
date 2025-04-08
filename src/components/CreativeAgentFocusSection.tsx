@@ -46,7 +46,7 @@ const CreativeAgentFocusSection: React.FC<CreativeAgentFocusSectionProps> = ({
               alt={t.visualAlt}
               width={300} // Provide appropriate base width
               height={200} // Provide appropriate base height (aspect ratio)
-              className="w-full h-96 object-contain md:absolute md:left-0 md:-bottom-36" // Adjust styling as needed
+              className="w-full md:h-96 h-64 object-contain md:absolute md:left-0 md:-bottom-36" // Adjust styling as needed
             />
           </div>
 

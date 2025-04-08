@@ -63,7 +63,7 @@ const AlternatingUseCasesSection: React.FC<AlternatingUseCasesSectionProps> = ({
   }, []);
 
   return (
-    <div id="alternating-use-cases">
+    <div id="use-cases" className="overflow-hidden">
       {useCasesData.map((useCase, index) => {
         const isImageLeft = index % 2 === 0;
         return (
@@ -77,7 +77,7 @@ const AlternatingUseCasesSection: React.FC<AlternatingUseCasesSectionProps> = ({
             }}
             className={`py-16 lg:py-24 overflow-hidden use-case-section-animate ${
               index % 2 === 0
-                ? "bg-neutral-50 slide-in-right-initial"
+                ? "slide-in-right-initial"
                 : "bg-white slide-in-left-initial"
             }`}
           >
@@ -89,7 +89,7 @@ const AlternatingUseCasesSection: React.FC<AlternatingUseCasesSectionProps> = ({
               >
                 {/* Coluna da Imagem */}
                 <div className="w-full lg:w-1/2">
-                  <div className="relative aspect-[16/10] bg-sky-50 rounded-xl shadow overflow-hidden">
+                  <div className="relative aspect-[16/10] border border-neutral-300 bg-sky-50 rounded-xl shadow overflow-hidden">
                     <Image
                       src={useCase.visual}
                       alt={`Fluxo de ${useCase.title}`}

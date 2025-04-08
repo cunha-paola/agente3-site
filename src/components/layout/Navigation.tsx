@@ -1,10 +1,9 @@
 // src/components/layout/Navigation.tsx
 "use client"; // Still needed for state and dropdown interactions
 
-import * as React from "react";
+import React, { useState } from "react"; // useState is needed now
 import Link from "next/link";
 import { Globe, Menu, X } from "lucide-react"; // Import Menu and X icons
-import { cn } from "@/lib/utils"; // Import cn if you use it
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,18 +12,41 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { translations, type Locale } from "@/lib/translations";
+// REMOVED: No longer need the global translations object here
+// import { translations, type Locale } from "@/lib/translations";
+import { type Locale } from "@/lib/translations"; // Keep Locale type if needed elsewhere
 
+// --- 1. Define the shape of the 't' prop THIS component expects ---
+// This should match the structure of the 'navigation' part of your main translation object
+interface NavigationTranslations {
+  solution: string;
+  features: string;
+  useCases: string;
+  pricing: string;
+  langSelect: string; // Or similar key for the dropdown/button aria-label
+  langPt: string; // Text for Portuguese option/display
+  langEn: string; // Text for English option/display
+  cta: string; // Text for primary CTA
+  cta2?: string; // Text for secondary CTA (optional if not always present)
+}
+
+// --- 2. Update NavigationProps to include 't' ---
 interface NavigationProps {
   currentLang: Locale;
   onLanguageChange: (lang: Locale) => void;
+  t: NavigationTranslations; // Add the 't' prop with the specific type
 }
 
-export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false); // State for mobile menu
+// --- 3. Accept 't' in the component function signature ---
+export function Navigation({
+  currentLang,
+  onLanguageChange,
+  t,
+}: NavigationProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
 
-  // Get the translation object for the current language
-  const t = translations[currentLang].navigation;
+  // --- REMOVED: No longer calculate 't' internally ---
+  // const t = translations[currentLang].navigation;
 
   // Function to toggle mobile menu
   const toggleMobileMenu = () => {
@@ -45,31 +67,30 @@ export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
           className="mr-6 flex items-center space-x-2"
           onClick={closeMobileMenu}
         >
-          <img src="/agente3.png" alt="Agente 3 Logo" className="h-7" />{" "}
-          {/* Corrected alt text */}
+          {/* Ensure your logo path is correct */}
+          <img src="/agente3.png" alt="Agente 3 Logo" className="h-7" />
         </Link>
 
         {/* Main Navigation Links (Hidden on Mobile) */}
+        {/* --- 4. Use the passed 't' prop for all text --- */}
         <nav className="hidden flex-1 items-center justify-start gap-4 lg:gap-6 lg:flex">
-          {" "}
-          {/* Centered on desktop */}
+          <Link
+            href="/#solution"
+            className="transition-colors hover:text-foreground/80 text-sm font-medium" // Added text style
+          >
+            {t.solution}
+          </Link>
           <Link
             href="/#features"
-            className="transition-colors hover:text-foreground/80"
+            className="transition-colors hover:text-foreground/80 text-sm font-medium" // Added text style
           >
             {t.features}
           </Link>
           <Link
             href="/#use-cases"
-            className="transition-colors hover:text-foreground/80"
+            className="transition-colors hover:text-foreground/80 text-sm font-medium" // Added text style
           >
             {t.useCases}
-          </Link>
-          <Link
-            href="/#pricing"
-            className="transition-colors hover:text-neutral-900" // Consider text-foreground/80 for consistency
-          >
-            {t.pricing}
           </Link>
         </nav>
 
@@ -78,47 +99,56 @@ export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
           {/* Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="w-[70px] justify-center gap-1">
+              <Button
+                variant="ghost"
+                className="w-[75px] justify-center gap-1 text-sm font-medium"
+              >
+                {" "}
+                {/* Adjusted width */}
                 <Globe className="h-4 w-4" />
                 {currentLang.toUpperCase()}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              {/* Display Portuguese option */}
               <DropdownMenuItem
                 onSelect={() => {
                   onLanguageChange("pt");
-                  closeMobileMenu();
+                  closeMobileMenu(); // Close mobile menu if open, harmless on desktop
                 }}
               >
-                {translations.pt.navigation.langPt}
+                {/* Use the langPt from the passed t prop */}
+                {t.langPt}
               </DropdownMenuItem>
+              {/* Display English option */}
               <DropdownMenuItem
                 onSelect={() => {
                   onLanguageChange("en");
                   closeMobileMenu();
                 }}
               >
-                {translations.en.navigation.langEn}
+                {/* Use the langEn from the passed t prop */}
+                {t.langEn}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           {/* CTA Buttons */}
-          <Button variant={"primary"}>{t.cta2}</Button>
+          {/* Use the passed t prop */}
+          {t.cta2 && <Button variant={"primary"}>{t.cta2}</Button>}
           <Button variant={"outline"}>{t.cta}</Button>
         </div>
 
         {/* Hamburger Menu Button (Visible on Mobile Only) */}
         <div className="flex items-center lg:hidden">
-          {" "}
-          {/* Wrapper for mobile buttons */}
-          {/* Keep Language Switcher on mobile? Optional */}
+          {/* Mobile Language Switcher - Simplified to just icon */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="mr-2">
-                {" "}
-                {/* Added size=icon */}
-                <Globe className="h-5 w-5" /> {/* Slightly larger icon */}
-                <span className="sr-only">Change language</span>
+              <Button variant="ghost" size={"icon"} className="mr-2">
+                <Globe className="h-8 w-8" />
+                <span className="sr-only">
+                  {t.langSelect || "Change language"}
+                </span>{" "}
+                {/* Use translation for aria-label */}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -128,7 +158,7 @@ export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
                   closeMobileMenu();
                 }}
               >
-                {translations.pt.navigation.langPt}
+                {t.langPt}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={() => {
@@ -136,21 +166,22 @@ export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
                   closeMobileMenu();
                 }}
               >
-                {translations.en.navigation.langEn}
+                {t.langEn}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          {/* Mobile Menu Toggle Button */}
           <Button
-            variant="ghost"
-            size="icon" // Make it visually a square button
+            variant="secondary"
+            size={"icon"}
             onClick={toggleMobileMenu}
             aria-label="Toggle navigation menu"
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
+              <X className="h-8 w-8" />
             ) : (
-              <Menu className="h-6 w-6" />
+              <Menu className="h-8 w-8" />
             )}
           </Button>
         </div>
@@ -159,9 +190,17 @@ export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
       {/* Mobile Menu Container (Appears below header) */}
       {isMobileMenuOpen && (
         <div
-          className="absolute top-full left-0 right-0 z-40 bg-background shadow-md lg:hidden animate-in slide-in-from-top-4 fade-in duration-200" // Added animation
+          // Added animation classes if using TailwindCSS Animate or similar
+          className="absolute top-full left-0 right-0 z-40 bg-background shadow-md lg:hidden animate-in slide-in-from-top-4 fade-in duration-200"
         >
           <nav className="flex flex-col gap-4 p-4 pt-2">
+            <Link
+              href="/#solution"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground"
+              onClick={closeMobileMenu}
+            >
+              {t.solution}
+            </Link>
             <Link
               href="/#features"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground"
@@ -176,18 +215,14 @@ export function Navigation({ currentLang, onLanguageChange }: NavigationProps) {
             >
               {t.useCases}
             </Link>
-            <Link
-              href="/#pricing"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground"
-              onClick={closeMobileMenu}
-            >
-              {t.pricing}
-            </Link>
             {/* Add CTAs to mobile menu */}
             <div className="mt-4 flex flex-col gap-3 border-t border-border/40 pt-4">
-              <Button variant={"primary"} onClick={closeMobileMenu}>
-                {t.cta2}
-              </Button>
+              {/* Use passed t prop */}
+              {t.cta2 && (
+                <Button variant={"primary"} onClick={closeMobileMenu}>
+                  {t.cta2}
+                </Button>
+              )}
               <Button variant={"outline"} onClick={closeMobileMenu}>
                 {t.cta}
               </Button>

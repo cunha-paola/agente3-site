@@ -130,7 +130,7 @@ export default function RootLayout({
       {/* <head /> tag is automatically managed by Next.js - no need to add it manually */}
       <body
         className={cn(
-          "min-h-screen bg-[#f5f5f2] font-sans antialiased", // Use Manrope as default sans-serif
+          "min-h-screen bg-[#f5f3f2] font-sans antialiased", // Use Manrope as default sans-serif
           fontSans.variable, // Makes --font-sans available
           fontHeading.variable // Makes --font-heading available (if you use it)
         )}

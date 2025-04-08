@@ -29,10 +29,10 @@ export default function Home() {
 
   return (
     <>
-      {/* REMOVE the t prop from Navigation */}
       <Navigation
         currentLang={currentLang} // Keep passing currentLang
         onLanguageChange={handleLanguageChange} // Keep passing handler
+        t={t.navigation}
       />
       <main>
         <HeroSection t={t.hero} />

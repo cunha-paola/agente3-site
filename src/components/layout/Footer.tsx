@@ -13,7 +13,7 @@ interface FooterTranslations {
   quickLinksTitle: string;
   linkFeatures: string;
   linkUseCases: string;
-  linkPricing: string;
+  linkSolution: string;
   legalLinksTitle: string;
   linkPrivacy: string;
   linkTerms: string;
@@ -33,9 +33,9 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
 
   // Links rápidos (ajuste os hrefs conforme sua estrutura de rotas)
   const quickLinks = [
-    { label: t.linkFeatures, href: "/features" },
-    { label: t.linkUseCases, href: "/use-cases" }, // Ou a seção na página principal: '/#use-cases'
-    { label: t.linkPricing, href: "/pricing" },
+    { label: t.linkSolution, href: "/#solution" },
+    { label: t.linkFeatures, href: "/#features" },
+    { label: t.linkUseCases, href: "/#use-cases" },
   ];
 
   // Links legais (ajuste os hrefs)
@@ -48,18 +48,13 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
   const socialLinks = [
     {
       label: "LinkedIn",
-      href: "https://linkedin.com/company/yourcompany",
+      href: "https://www.linkedin.com/company/agente3ai/",
       icon: <FaLinkedin />,
     },
     {
       label: "Instagram",
-      href: "https://instagram.com/yourcompany",
+      href: "https://www.instagram.com/oiagente3/",
       icon: <FaInstagram />,
-    },
-    {
-      label: "Facebook",
-      href: "https://facebook.com/yourcompany",
-      icon: <FaFacebookSquare />,
     },
   ];
 

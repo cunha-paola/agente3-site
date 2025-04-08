@@ -31,7 +31,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ t }) => {
         <div className="max-w-6xl mx-auto mb-16 md:mb-24">
           {" "}
           {/* Added margin-bottom */}
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-fuchsia-400 uppercase bg-fuchsia-100 rounded">
+          <span className="inline-block max-w-[240px] md:max-w-full px-3  py-1 mb-4 text-xs font-semibold tracking-wider text-fuchsia-400 uppercase bg-fuchsia-100 rounded">
             {" "}
             {/* Added rounded */}
             {t.tagTitle}

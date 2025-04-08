@@ -159,7 +159,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ t }) => {
         <div className="max-w-3xl mx-auto mb-16 text-center lg:mb-16">
           {" "}
           {/* Mais margem inferior */}
-          <span className="inline-block px-4 py-1 mb-4 text-xs font-semibold tracking-wider text-fuchsia-400 uppercase bg-white rounded">
+          <span className="inline-block max-w-[240px] md:max-w-full px-4 py-1 mb-4 text-xs font-semibold tracking-wider text-fuchsia-400 uppercase bg-white rounded">
             {" "}
             {/* Ajuste visual na tag */}
             {t.subtitle}
